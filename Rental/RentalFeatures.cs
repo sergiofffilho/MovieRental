@@ -23,8 +23,9 @@ namespace MovieRental.Rental
 		public async Task<IEnumerable<Rental>> GetRentalsByCustomerName(string customerName)
 		{
 			return await _movieRentalDb.Rentals
-            .Where(rental => rental.CustomerName.ToLower().Contains(customerName.ToLower()))
-            .ToListAsync();
+            .Include(r => r.Customer)
+			.Where(r => r.Customer != null && r.Customer.Name.Contains(customerName))
+			.ToListAsync();
 		}
 	}
 }

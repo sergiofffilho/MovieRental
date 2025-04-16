@@ -1,3 +1,4 @@
+using MovieRental.Customer;
 using MovieRental.Data;
 using MovieRental.Movie;
 using MovieRental.Rental;
@@ -11,6 +12,7 @@ builder.Services.AddEntityFrameworkSqlite().AddDbContext<MovieRentalDbContext>()
 
 builder.Services.AddScoped<IMovieFeatures, MovieFeatures>();
 builder.Services.AddScoped<IRentalFeatures, RentalFeatures>();
+builder.Services.AddScoped<ICustomerFeatures, CustomerFeatures>();
 
 var app = builder.Build();
 
@@ -30,11 +32,5 @@ using (var client = new MovieRentalDbContext())
 {
 	client.Database.EnsureCreated();
 }
-
-// using (var scope = app.Services.CreateScope())
-// {
-//     var db = scope.ServiceProvider.GetRequiredService<MovieRentalDbContext>();
-//     db.Database.EnsureCreated();
-// }
 
 app.Run();
